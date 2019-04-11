@@ -14,8 +14,9 @@ float C(float u){
 int main(){
   signed char qntChar[4];
   std::ifstream dctFile;
-  dctFile.open("input2.dct",std::ios::binary);
+  dctFile.open("input.dct",std::ios::binary);
   std::vector<signed char> buffer(std::istreambuf_iterator<char>(dctFile), {});
+  dctFile.close();
   int i;
   float qnt;
   unsigned int *j;
@@ -31,7 +32,6 @@ int main(){
     std::cout << amostras[i-4] << std::endl;
   }
 
-  dctFile.close();
 
   std::vector<float> dct;
   std::cout << std::endl << C(2) << std::endl << C(0) << std::endl;
@@ -60,6 +60,12 @@ int main(){
     std::cout << "idct "<< i << " " << idct[i] << std::endl;
   }
 
+  std::cout << std::endl;
+  std::vector<float> diff;
+  for(i = 0; i < qnt; i++){
+    diff.push_back(amostras[i] - idct[i]);
+    std::cout << diff[i] << std::endl;
+  }
 
 
 
