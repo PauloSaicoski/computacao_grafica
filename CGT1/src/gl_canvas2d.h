@@ -50,5 +50,8 @@ void initCanvas(int w, int h, const char *title);
 //funcao para executar a Canvas2D
 void runCanvas();
 
+int get_altura();
+int get_largura();
+
 
 #endif

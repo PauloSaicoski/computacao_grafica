@@ -124,7 +124,7 @@ public:
 };
 
 
-std::vector<grafico> listaGR;
+std::vector<grafico*> listaGR;
 
 
 class checkBox:public figura{
@@ -160,14 +160,17 @@ class checkBox:public figura{
   }
 
   void marca(){
-    listaGR.push_back(*g);
+    listaGR.push_back(g);
   }
   void desmarca(){
-    for(auto a = listaGR.begin(); a<listaGR.end(); a++){
+
+    listaGR.erase(std::find(listaGR.begin(),listaGR.end(), g));
+
+    /*for(auto a = listaGR.begin(); a<listaGR.end(); a++){
       if (a->nome == this->nome){
         listaGR.erase(a);
       }
-    }
+    }*/
   }
   void atualiza(int button, int state, int x, int y){
     if(x>pos.xIni&&x<posXfim()&&y>pos.yIni&&y<posYfim()){
@@ -197,12 +200,12 @@ void render()
 {
   auto i = 0;
   for(i = 0; i < listaCB.size(); i++){
-    listaCB[i].desenha(LARGURA_TELA/20, ALTURA_TELA*0.9 - (i*(ALTURA_TELA/2)/listaCB.size()), std::min(LARGURA_TELA, ALTURA_TELA)/40, std::min(LARGURA_TELA, ALTURA_TELA)/40);
+    listaCB[i].desenha(get_largura()/20, get_altura()*0.9 - (i*(get_altura()/2)/listaCB.size()), std::min(get_largura(), get_altura())/40, std::min(get_largura(), get_altura())/40);
   }
-  float desenhavelXini = LARGURA_TELA/10;
-  float desenhavelYini = ALTURA_TELA/20;
-  float tamXmax = LARGURA_TELA*0.95 - LARGURA_TELA/10;
-  float tamYmax = ALTURA_TELA*0.95 - ALTURA_TELA/20;
+  float desenhavelXini = get_largura()/10;
+  float desenhavelYini = get_altura()/20;
+  float tamXmax = get_largura()*0.95 - get_largura()/10;
+  float tamYmax = get_altura()*0.95 - get_altura()/20;
   int gradeX = ceil(sqrt(listaGR.size()));
   int gradeY = gradeX;
   int qnt1l = gradeX - ((gradeX*gradeX) - listaGR.size()); //quantia de elementos na primeira linha
@@ -212,14 +215,14 @@ void render()
     if (qnt1l==1)gradeX--;
   }
   for(i = 0; i < qnt1l; i++){
-    listaGR[i].desenha(desenhavelXini+(i*1.1*tamXmax/qnt1l), desenhavelYini+tamYmax-(tamYmax/gradeY), (tamXmax/qnt1l)*0.95, tamYmax*0.95/gradeY);
+    listaGR[i]->desenha(desenhavelXini+(i*1.1*tamXmax/qnt1l), desenhavelYini+tamYmax-(tamYmax/gradeY), (tamXmax/qnt1l)*0.95, tamYmax*0.95/gradeY);
   }
   for(i = qnt1l; i < listaGR.size(); i++){
     int l;
     int c;
     c = (i-qnt1l)%(gradeX);
     l = (i-qnt1l)/gradeY;
-    listaGR[i].desenha(desenhavelXini+(c*1.1*tamXmax/gradeX), desenhavelYini+tamYmax-(tamYmax/gradeY)*(gradeY-l), (tamXmax/gradeX)*0.95, tamYmax*0.95/gradeY);
+    listaGR[i]->desenha(desenhavelXini+(c*1.1*tamXmax/gradeX), desenhavelYini+tamYmax-(tamYmax/gradeY)*(gradeY-l), (tamXmax/gradeX)*0.95, tamYmax*0.95/gradeY);
 
   }
 
@@ -252,9 +255,9 @@ void keyboardUp(int key)
 //funcao para tratamento de mouse: cliques, movimentos e arrastos
 void mouse(int button, int state, int wheel, int direction, int x, int y)
 {
-   printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
+   //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
    for(auto &a: listaCB){
-    a.atualiza(button, state, x, ALTURA_TELA-y);
+    a.atualiza(button, state, x, get_altura()-y);
    }
 }
 
@@ -313,8 +316,12 @@ std::vector<int> le_arquivo(char* arquivo){
   std::cout << std::endl;
   std::cout << (*j) << std::endl << std::endl;
   qnt = *j;
+  if(qnt<8||qnt>64||qnt>(buffer.size()-4)){
+    std::cout<<"input fora do padrao"<<std::endl;
+    exit(0);
+  }
   std::vector<int> amostras;
-  for(i = 4; i < buffer.size(); i++){
+  for(i = 4; i < qnt+4; i++){
     amostras.push_back(buffer[i]);
     std::cout << amostras[i-4] << std::endl;
   }
@@ -326,13 +333,21 @@ int main(void)
   initCanvas(LARGURA_TELA,ALTURA_TELA, "Trabalho CGT1");
 
   std::vector<int> amostras, amostras2;
-  amostras = le_arquivo("input.dct");
+  amostras = le_arquivo("base2.dct");
+  int i;
+  for(i = 0; i<amostras.size(); i++){
+    if(amostras[i]>=0){
+      amostras[i]-=127;
+    }
+    else{
+      amostras[i]+=128;
+    }
+  }
+
   std::vector<double> amostras_d (amostras.begin(), amostras.end());
   std::vector<double> dct, dct2;
+
   dct = aplica_dct(amostras_d);
-
-  int i;
-
   for(i = 0; i < dct.size(); i++){
     std::cout << "dct "<< i << " " << dct[i] << std::endl;
   }

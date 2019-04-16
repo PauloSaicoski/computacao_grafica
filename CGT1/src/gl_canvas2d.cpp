@@ -254,6 +254,13 @@ void initCanvas(int w, int h, const char *title)
 
 }
 
+int get_altura(){
+  return altura;
+}
+int get_largura(){
+  return largura;
+}
+
 void runCanvas()
 {
    glutMainLoop();
