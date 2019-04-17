@@ -91,20 +91,24 @@ public:
   }
 
   void desenha(){
+    color(1,0,0);
+    text(pos.xIni+(0.05*pos.xTam), posYfim()+(0.02*pos.yTam), nome); //escreve o nome do grafico
     color(0,0,0);
     rect(pos.xIni, pos.yIni, posXfim(), posYfim());
     line(pos.xIni+0.05*pos.xTam, origemY, fimX, origemY ); //desenha o eixo X
     line(origemX, pos.yIni+0.05*pos.yTam, origemX, fimY );//desenha o eixo Y
-    text(pos.xIni+(0.05*pos.xTam), posYfim()+(0.03*pos.yTam), nome); //escreve o nome do grafico
     int i;
     for(i = 0; i < amostras.size()-1; i++){
+      color(0,0,1);
       circleFill(origemX+((i+0.5)*(fimX-origemX)/amostras.size()), origemY+(amostras[i]*(fimY-origemY)/maior), std::min(fimX-origemX, fimY-origemY)* 0.025, 50);
       line(origemX+((i+0.5)*(fimX-origemX)/amostras.size()), origemY+(amostras[i]*(fimY-origemY)/maior),
            origemX+((i+1.5)*(fimX-origemX)/amostras.size()), origemY+(amostras[i+1]*(fimY-origemY)/maior));//desenha linha entre pontos
 
     }
     circleFill(origemX+((i+0.5)*(fimX-origemX)/amostras.size()), origemY+(amostras[i]*(fimY-origemY)/maior), std::min(fimX-origemX, fimY-origemY)* 0.025, 50);
+    color(0,0,0);
     line(origemX-pos.xTam*0.02, fimY, origemX+pos.xTam*0.02, fimY);
+    color(1,0,1);
     char str[4];
     sprintf(str, "%.0f",  maior);
     text(origemX-pos.xTam*0.075, fimY - 5, str); //-5 adicionado por casua do tamanho da fonte
