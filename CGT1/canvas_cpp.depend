@@ -1,0 +1,101 @@
+# depslib dependency file v1.0
+1555466702 source:c:\users\paulosarkis\documents\cg\git\cgt1\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1555466702 c:\users\paulosarkis\documents\cg\git\cgt1\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 c:\users\paulosarkis\documents\cg\git\cgt1\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 c:\users\paulosarkis\documents\cg\git\cgt1\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 c:\users\paulosarkis\documents\cg\git\cgt1\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1555638023 source:c:\users\paulosarkis\documents\cg\git\cgt1\src\main_cpp.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"gl_canvas2d.h"
+	"figuras.h"
+	<iostream>
+	<fstream>
+	<string>
+	<iterator>
+	<vector>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<algorithm>
+
+1555637705 c:\users\paulosarkis\documents\cg\git\cgt1\src\figuras.h
+	"gl_canvas2d.h"
+	<vector>
+	<algorithm>
+
+1555466702 source:c:\users\paulosarkis\documents\cg\git\cgt1\pssarkis\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1555466702 c:\users\paulosarkis\documents\cg\git\cgt1\pssarkis\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1426358040 c:\users\paulosarkis\documents\cg\git\cgt1\pssarkis\include\gl\glut.h
+	"freeglut_std.h"
+
+1437565542 c:\users\paulosarkis\documents\cg\git\cgt1\pssarkis\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1426358040 c:\users\paulosarkis\documents\cg\git\cgt1\pssarkis\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1555812499 source:c:\users\paulosarkis\documents\cg\git\cgt1\pssarkis\src\main_cpp.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"gl_canvas2d.h"
+	"figuras.h"
+	<iostream>
+	<fstream>
+	<string>
+	<iterator>
+	<vector>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<algorithm>
+
+1555637705 c:\users\paulosarkis\documents\cg\git\cgt1\pssarkis\src\figuras.h
+	"gl_canvas2d.h"
+	<vector>
+	<algorithm>
+

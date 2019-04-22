@@ -2,28 +2,23 @@
 // Canvas para desenho - Versao CPP.
 //  Autor: Cesar Tadeu Pozzer
 //         10/2007
-//
-//  Pode ser utilizada para fazer desenhos ou animacoes, como jogos simples.
-//  Tem tratamento de mosue
-//  Estude o OpenGL antes de tentar compreender o arquivo gl_canvas.cpp
-//
-//  Instruções:
-//    Para compilar em C, basta comentar o comando #define _CPP_
-//	  Para alterar a animacao, digite numeros entre 1 e 7
 // *********************************************************************/
 
 /*
-  Autor: Cesar Tadeu Pozzer
-         04/2013
+  Autor: Paulo Saicoski Sarkis
+         04/2019
+
+  Matricula: 201612057
 
   Instruções:
-	  Para alterar a animacao, digite numeros entre 1 e 7
+	  Selecione quais graficos devem ser impressos na tela, utilize as setas do teclado para alterar qual funcao base a ser exibida
 */
 
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h> //callback da wheel do mouse.
 
 #include "gl_canvas2d.h"
+#include "figuras.h"
 
 #include <iostream>
 #include <fstream>
@@ -46,189 +41,56 @@
 int   opcao  = 50;
 float global = 0;
 
-struct Posicao {
-  float xIni, yIni, xTam, yTam;
-};
 
 
-class figura{
-public:
-  char* nome;
-  Posicao pos;
-  virtual void desenha(){};
-  virtual void atualiza(){};
-  float posXfim(){
-    return pos.xIni+pos.xTam;}
-  float posYfim(){
-    return pos.yIni+pos.yTam;}
-  set_figura(char* nome, float xIni, float yIni, float xTam, float yTam){
-    this->pos.xIni = xIni;
-    this->pos.yIni = yIni;
-    this->pos.xTam = xTam;
-    this->pos.yTam = yTam;
-    this->nome = nome;
+grafico *base = NULL;          //ponteiro utilizado para interacao com o grafico de funcoes bases
+std::vector<checkBox> listaCB; //lista de botoes
+
+std::vector<double> funcao_base(int base, int qnt){ //calcula as bases da dct
+  std::vector<double> resultado;
+  for(double u = 0; u < qnt; u++){
+    resultado.push_back(cos(((M_PI*base)/(2*qnt))*(2*u + 1)));
   }
-
-};
-
-
-class grafico:public figura{
-public:
-  std::vector<double> amostras;
-  double maior;
-  float origemX, origemY, fimX, fimY; //area para desenho dentro do grafico, fimY apenas com o valor positivo
-  grafico(char* nome, float xIni, float yIni, float xTam, float yTam, std::vector<double> amostras){
-    set_figura(nome, xIni, yIni, xTam, yTam);
-    this->amostras = amostras;
-    origemX = pos.xIni+0.1*pos.xTam;
-    origemY = pos.yIni+0.5*pos.yTam;
-    fimX = posXfim() - 0.05*pos.xTam;
-    fimY = posYfim() - 0.05*pos.yTam;
-    maior = 0;
-    for(auto &a : amostras){
-      maior = (abs(a) > maior) ? abs(a) : maior;
-    }
-  }
-
-  void desenha(){
-    color(1,0,0);
-    text(pos.xIni+(0.05*pos.xTam), posYfim()+(0.02*pos.yTam), nome); //escreve o nome do grafico
-    color(0,0,0);
-    rect(pos.xIni, pos.yIni, posXfim(), posYfim());
-    line(pos.xIni+0.05*pos.xTam, origemY, fimX, origemY ); //desenha o eixo X
-    line(origemX, pos.yIni+0.05*pos.yTam, origemX, fimY );//desenha o eixo Y
-    int i;
-    for(i = 0; i < amostras.size()-1; i++){
-      color(0,0,1);
-      circleFill(origemX+((i+0.5)*(fimX-origemX)/amostras.size()), origemY+(amostras[i]*(fimY-origemY)/maior), std::min(fimX-origemX, fimY-origemY)* 0.025, 50);
-      line(origemX+((i+0.5)*(fimX-origemX)/amostras.size()), origemY+(amostras[i]*(fimY-origemY)/maior),
-           origemX+((i+1.5)*(fimX-origemX)/amostras.size()), origemY+(amostras[i+1]*(fimY-origemY)/maior));//desenha linha entre pontos
-
-    }
-    circleFill(origemX+((i+0.5)*(fimX-origemX)/amostras.size()), origemY+(amostras[i]*(fimY-origemY)/maior), std::min(fimX-origemX, fimY-origemY)* 0.025, 50);
-    color(0,0,0);
-    line(origemX-pos.xTam*0.02, fimY, origemX+pos.xTam*0.02, fimY);
-    color(1,0,1);
-    char str[4];
-    sprintf(str, "%.0f",  maior);
-    text(origemX-pos.xTam*0.075, fimY - 5, str); //-5 adicionado por casua do tamanho da fonte
-  }
-  void atualiza(){
-    origemX = pos.xIni+0.1*pos.xTam;
-    origemY = pos.yIni+0.5*pos.yTam;
-    fimX = posXfim() - 0.05*pos.xTam;
-    fimY = posYfim() - 0.05*pos.yTam;
-  }
-  void desenha(float xIni, float yIni, float xTam, float yTam){
-    set_figura(nome, xIni, yIni, xTam, yTam);
-    atualiza();
-    desenha();
-  }
-
-};
-
-
-std::vector<grafico*> listaGR;
-
-
-class checkBox:public figura{
-  public:
-  bool marcado;
-  bool mouseAcima;
-  std::vector<grafico>::iterator a;
-  grafico* g;
-  checkBox(char* nome, float xIni, float yIni, float xTam, float yTam, grafico* g){
-    set_figura(nome, xIni, yIni, xTam, yTam);
-    marcado = false;
-    mouseAcima = false;
-    this->g = g;
-  }
-  void desenha(){
-    if(mouseAcima){
-      color(0,0,0);
-    }else{
-      color(1,0,0);
-    }
-    rect(pos.xIni, pos.yIni, posXfim(), posYfim());
-    if(marcado){
-      color(1,0,0);
-      line(pos.xIni, pos.yIni, posXfim(), posYfim());
-      line(posXfim(), pos.yIni, pos.xIni, posYfim());
-    }
-    color(0,0,0);
-    text(pos.xIni+(0.05*pos.xTam), posYfim()+(0.05*pos.yTam), nome);
-  }
-  void desenha(float xIni, float yIni, float xTam, float yTam){
-    set_figura(nome, xIni, yIni, xTam, yTam);
-    desenha();
-  }
-
-  void marca(){
-    listaGR.push_back(g);
-  }
-  void desmarca(){
-
-    listaGR.erase(std::find(listaGR.begin(),listaGR.end(), g));
-
-    /*for(auto a = listaGR.begin(); a<listaGR.end(); a++){
-      if (a->nome == this->nome){
-        listaGR.erase(a);
-      }
-    }*/
-  }
-  void atualiza(int button, int state, int x, int y){
-    if(x>pos.xIni&&x<posXfim()&&y>pos.yIni&&y<posYfim()){
-      mouseAcima = true;
-      if(button == 0 && state == 0){
-        if (marcado){
-          desmarca();
-        }
-        else{
-          marca();
-        }
-        marcado = !marcado;
-      }
-    }
-    else{
-      mouseAcima = false;
-    }
-  }
-};
-
-std::vector<checkBox> listaCB;
-
+  return resultado;
+}
 
 //funcao chamada continuamente. Deve-se controlar o que desenhar por meio de variaveis
 //globais que podem ser setadas pelo metodo keyboard()
 void render()
 {
-  auto i = 0;
-  for(i = 0; i < listaCB.size(); i++){
+  static float desenhavelXini, desenhavelYini, tamXmax, tamYmax; //variaveis referentes a area desenhavel para os graficos, dando espaco para os botoes a esquerda
+  static int gradeX, gradeY, qnt1l, l, c, i;                     //variaveis utilizadas para desenhar a quantia de graficos selecionados na tela, tentando manter sempre um aspecto de grade
+  color(0.5, 0, 1);
+  text(5,5,"Utilize as setas para alterar qual funcao base a ser exibida");
+  for(i = 0; i < listaCB.size(); i++){                           //desenha os botoes na tela
     listaCB[i].desenha(get_largura()/20, get_altura()*0.9 - (i*(get_altura()/2)/listaCB.size()), std::min(get_largura(), get_altura())/40, std::min(get_largura(), get_altura())/40);
   }
-  float desenhavelXini = get_largura()/10;
-  float desenhavelYini = get_altura()/20;
-  float tamXmax = get_largura()*0.95 - get_largura()/10;
-  float tamYmax = get_altura()*0.95 - get_altura()/20;
-  int gradeX = ceil(sqrt(listaGR.size()));
-  int gradeY = gradeX;
-  int qnt1l = gradeX - ((gradeX*gradeX) - listaGR.size()); //quantia de elementos na primeira linha
+  desenhavelXini = get_largura()/10;
+  desenhavelYini = get_altura()/20;
+  tamXmax = get_largura()*0.95 - get_largura()/10;
+  tamYmax = get_altura()*0.95 - get_altura()/20;
+  gradeX = ceil(sqrt(listaGR.size()));
+  gradeY = gradeX;
+  qnt1l = gradeX - ((gradeX*gradeX) - listaGR.size()); //quantia de elementos na primeira linha, caso não hajam elementos suficientes para fechar uma grade quadrada a primeira linha tera menos elementos
   qnt1l = (qnt1l > 0)? qnt1l : gradeX;
   if(qnt1l > 1 && qnt1l > listaGR.size()/2){
     qnt1l--;
-    if (qnt1l==1)gradeX--;
+    if (qnt1l==1)gradeX--;                             //confere o caso de apenas 2 graficos estarem sendo desenhados
   }
-  for(i = 0; i < qnt1l; i++){
+  //
+  if (listaGR.size()>2 && listaGR.size() <= gradeY*gradeY-gradeY){  //conserta grade com, por exemplo, 5 ou 6 elementos
+    gradeY--;
+  }/* */
+
+  for(i = 0; i < qnt1l; i++){                //desenha os elementos da primeira linha, caso não hajam elementos suficientes para fechar uma grade quadrada os elementos da primeira linha ficam mais esticados
     listaGR[i]->desenha(desenhavelXini+(i*1.1*tamXmax/qnt1l), desenhavelYini+tamYmax-(tamYmax/gradeY), (tamXmax/qnt1l)*0.95, tamYmax*0.95/gradeY);
   }
-  for(i = qnt1l; i < listaGR.size(); i++){
-    int l;
-    int c;
-    c = (i-qnt1l)%(gradeX);
-    l = (i-qnt1l)/gradeY;
+  for(i = qnt1l; i < listaGR.size(); i++){   //desenha o resto dos graficos da grade
+    c = (i-qnt1l)%(gradeX); //numero da coluna a ser desenhado
+    l = (i-qnt1l)/gradeX;   //numero da linha
     listaGR[i]->desenha(desenhavelXini+(c*1.1*tamXmax/gradeX), desenhavelYini+tamYmax-(tamYmax/gradeY)*(gradeY-l), (tamXmax/gradeX)*0.95, tamYmax*0.95/gradeY);
-
   }
+  //todas as posicoes na tela foram feitas utilizando porcentagens ou divisoes da tela, desta forma, caso a tela seja redimencionada, os desenhos se reajustam em "tempo real"
 
 }
 
@@ -240,12 +102,33 @@ void keyboard(int key)
    {
       opcao = key;
    }
-
+   static int i = 0;
    switch(key)
    {
       case 27:
-	     exit(0);
-	  break;
+	     exit(0);                                                 //tecla esc finaliza o programa
+	     break;
+
+      case 201:                                                 //seta cima
+        i = (i+1)%base->amostras.size();
+        base->amostras = funcao_base(i, base->amostras.size()); //passa para a proxima funcao base
+      break;
+
+      case 202:                                                 //seta direita
+        i = (i+1)%base->amostras.size();
+        base->amostras = funcao_base(i, base->amostras.size()); //passa para a proxima funcao base
+      break;
+
+      case 203:                                                 //seta baixo
+        i = (i-1)%base->amostras.size();
+        base->amostras = funcao_base(i, base->amostras.size()); //retorna para a funcao base anterior
+      break;
+
+      case 200:                                                 //seta esquerda
+        i = (i-1)%base->amostras.size();
+        base->amostras = funcao_base(i, base->amostras.size()); //retorna para a funcao base anterior
+      break;
+
 
    }
 }
@@ -261,7 +144,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 {
    //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
    for(auto &a: listaCB){
-    a.atualiza(button, state, x, get_altura()-y);
+    a.atualiza(button, state, x, get_altura()-y); //atualiza os botoes conferindo a posicao e clique do mouse
    }
 }
 
@@ -271,26 +154,26 @@ float C(float u){
 
 std::vector<double> aplica_dct(std::vector<double> amostras){
   std::vector<double> dct;
-  float qnt = amostras.size();
+  double qnt = amostras.size();
   for(int u = 0; u < qnt; u++){
-    float soma = 0;
+    double soma = 0;
     for(int i = 0; i < qnt; i++){
       soma += C(u) * amostras[i] * cos(((M_PI*u)/(2*qnt))*(2*i + 1));
     }
-    dct.push_back(round(sqrt(2/qnt)*soma));
+    dct.push_back(sqrt(2/qnt)*soma);
   }
   return dct;
 }
 
 std::vector<double> aplica_idct(std::vector<double> dct){
   std::vector<double>idct;
-  float qnt = dct.size();
+  double qnt = dct.size();
   for(int i = 0; i < qnt; i++){
-    float soma = 0;
+    double soma = 0;
     for(int u = 0; u < qnt; u++){
       soma += C(u) * dct[u] * cos(((M_PI*u)/(2*qnt))*(2*i + 1));
     }
-    idct.push_back(round(sqrt(2/qnt)*soma));
+    idct.push_back(sqrt(2/qnt)*soma);
   }
   return idct;
 }
@@ -332,13 +215,26 @@ std::vector<int> le_arquivo(char* arquivo){
   return amostras;
 }
 
+void escreve_arquivo (char* arquivo, std::vector<signed char> vetor){
+   std::ofstream idctfile;
+   unsigned int j = vetor.size();
+   char *c;
+   c = (char*)&j;
+   idctfile.open(arquivo, std::ios::binary);
+   idctfile.write(c, 4);
+   for (const auto &e : vetor) idctfile << e;
+   idctfile.close();
+}
+
+
 int main(void)
 {
   initCanvas(LARGURA_TELA,ALTURA_TELA, "Trabalho CGT1");
 
-  std::vector<int> amostras, amostras2;
-  amostras = le_arquivo("base2.dct");
+  std::vector<int> amostras;
+  amostras = le_arquivo("input2.dct");
   int i;
+  /*/
   for(i = 0; i<amostras.size(); i++){
     if(amostras[i]>=0){
       amostras[i]-=127;
@@ -346,63 +242,91 @@ int main(void)
     else{
       amostras[i]+=128;
     }
-  }
+  } /* */
+
+
 
   std::vector<double> amostras_d (amostras.begin(), amostras.end());
-  std::vector<double> dct, dct2;
+  std::vector<double> dct, idct, diff;
 
   dct = aplica_dct(amostras_d);
+  idct = aplica_idct(dct);
+  diff=verifica_diff(amostras_d,idct);
+
+/*/ //prints de teste dos vetores dct e idct
   for(i = 0; i < dct.size(); i++){
     std::cout << "dct "<< i << " " << dct[i] << std::endl;
   }
 
-  std::vector<double> idct,idct2;
-  idct = aplica_idct(dct);
-
-
   for(i = 0; i < idct.size(); i++){
     std::cout << "idct "<< i << " " << idct[i] << std::endl;
   }
-  amostras2 = le_arquivo("input3.dct");
-  std::vector<double> amostras_d2 (amostras2.begin(), amostras2.end());
-  dct2=aplica_dct(amostras_d2);
-  idct2=aplica_idct(dct2);
+/* */
 
-  std::cout << std::endl;
-  std::vector<double> diff,diff2;
-
-  diff=verifica_diff(amostras_d,idct);
-
-  diff2=verifica_diff(amostras_d2,idct2);
-
+   /* adiciona os vetores aos graficos, os graficos aos botoes e os botoes as listas */
    checkBox *cb = NULL;
    grafico *g = NULL;
-   g = new grafico("input", 2,2,496,496, amostras_d);
-   cb = new checkBox("input", 50, 50, 50, 50, g);
+   g = new grafico("input", amostras_d);
+   cb = new checkBox(g);
    listaCB.push_back(*cb);
-   g = new grafico("dct", 2,2,496,496, dct);
-   cb = new checkBox("dct", 50, 50, 50, 50, g);
+   g = new grafico("dct", dct);
+   cb = new checkBox(g);
    listaCB.push_back(*cb);
-   g = new grafico("idct", 2,2,496,496, idct);
-   cb = new checkBox("idct", 50, 50, 50, 50, g);
+   g = new grafico("idct", idct);
+   cb = new checkBox(g);
    listaCB.push_back(*cb);
-   g = new grafico("diff", 2,2,496,496, diff);
-   cb = new checkBox("diff", 50, 50, 50, 50, g);
+   g = new grafico("diff", diff);
+   cb = new checkBox(g);
    listaCB.push_back(*cb);
-
-   g = new grafico("input2", 2,2,496,496, amostras_d2);
-   cb = new checkBox("input2", 50, 50, 50, 50, g);
-   listaCB.push_back(*cb);
-   g = new grafico("dct2", 2,2,496,496, dct2);
-   cb = new checkBox("dct2", 50, 50, 50, 50, g);
-   listaCB.push_back(*cb);
-   g = new grafico("idct2", 2,2,496,496, idct2);
-   cb = new checkBox("idct2", 50, 50, 50, 50, g);
-   listaCB.push_back(*cb);
-   g = new grafico("diff2", 2,2,496,496, diff2);
-   cb = new checkBox("diff2", 50, 50, 50, 50, g);
+   g = new grafico("base", funcao_base(0, amostras.size()));
+   base = g;
+   cb = new checkBox(g);
    listaCB.push_back(*cb);
 
+
+   /*/  //descomentar esta secao para imprimir graficos referentes a mais um input
+   std::vector<int> amostras2;
+   amostras2 = le_arquivo("input2.dct");
+   std::vector<double> amostras2_d (amostras2.begin(), amostras2.end());
+   std::vector<double> dct2, idct2, diff2;
+   dct2 = aplica_dct(amostras2_d);
+   idct2 = aplica_idct(dct2);
+   diff2 = verifica_diff(amostras2_d, idct2);
+   g = new grafico("input2", amostras2_d);
+   cb = new checkBox(g);
+   listaCB.push_back(*cb);
+   g = new grafico("dct2", dct2);
+   cb = new checkBox(g);
+   listaCB.push_back(*cb);
+   g = new grafico("idct2", idct2);
+   cb = new checkBox(g);
+   listaCB.push_back(*cb);
+   g = new grafico("diff2", diff2);
+   cb = new checkBox(g);
+   listaCB.push_back(*cb);
+   /* */
+
+   std::vector<signed char> saida; //preenche o vetor de saida com os valores da idct, conferindo se os mesmos nao sao maiores do que uma variavel char aceita
+   for (i = 0; i < idct.size(); i++){
+      if(idct[i]> 127){
+        saida.push_back(127);
+      }
+      else if (idct[i]<-128){
+        saida.push_back(-128);
+      }
+      else{
+        saida.push_back(round(idct[i]));
+      }
+   }
+
+   escreve_arquivo("output.dct", saida);
 
    runCanvas();
+
+
+   for(auto a = listaCB.begin(); a<listaCB.end(); a++){ //laco de liberacao da lista de botoes
+     delete a->g;  //libera o grafico associado ao botao
+     delete &(*a); //libera o botao em si
+   }
+
 }
