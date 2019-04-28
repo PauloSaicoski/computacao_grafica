@@ -10,7 +10,7 @@
 
   Matricula: 201612057
 
-  Instru��es:
+  Instrucoes:
 	  Selecione quais graficos devem ser impressos na tela, utilize as setas do teclado para alterar qual funcao base a ser exibida
 */
 
@@ -71,7 +71,7 @@ void render()
   tamYmax = get_altura()*0.95 - get_altura()/20;
   gradeX = ceil(sqrt(listaGR.size()));
   gradeY = gradeX;
-  qnt1l = gradeX - ((gradeX*gradeX) - listaGR.size()); //quantia de elementos na primeira linha, caso n�o hajam elementos suficientes para fechar uma grade quadrada a primeira linha tera menos elementos
+  qnt1l = gradeX - ((gradeX*gradeX) - listaGR.size()); //quantia de elementos na primeira linha, caso nao hajam elementos suficientes para fechar uma grade quadrada a primeira linha tera menos elementos
   qnt1l = (qnt1l > 0)? qnt1l : gradeX;
   if(qnt1l > 1 && qnt1l > listaGR.size()/2){
     qnt1l--;
@@ -82,7 +82,7 @@ void render()
     gradeY--;
   }/* */
 
-  for(i = 0; i < qnt1l; i++){                //desenha os elementos da primeira linha, caso n�o hajam elementos suficientes para fechar uma grade quadrada os elementos da primeira linha ficam mais esticados
+  for(i = 0; i < qnt1l; i++){                //desenha os elementos da primeira linha, caso nao hajam elementos suficientes para fechar uma grade quadrada os elementos da primeira linha ficam mais esticados
     listaGR[i]->desenha(desenhavelXini+(i*1.1*tamXmax/qnt1l), desenhavelYini+tamYmax-(tamYmax/gradeY), (tamXmax/qnt1l)*0.95, tamYmax*0.95/gradeY);
   }
   for(i = qnt1l; i < listaGR.size(); i++){   //desenha o resto dos graficos da grade
