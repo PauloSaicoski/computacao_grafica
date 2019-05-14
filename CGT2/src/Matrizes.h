@@ -16,6 +16,9 @@ public:
   ponto(float x, float y){
     SetCoordenadas(x,y);
   }
+  ponto(){
+    SetCoordenadas(0,0);
+  }
 
   void AtualizaCoordenadas();
   void SetCoordenadas(float x, float y);

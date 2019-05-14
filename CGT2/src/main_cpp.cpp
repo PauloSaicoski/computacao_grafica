@@ -29,34 +29,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Matrizes.h"
+//#include "Matrizes.h"
 #include "Bicicleta.h"
 
 //variaveis globais
 int   opcao  = 50;
 float global = 0;
 ponto* teste = nullptr;
-roda* r = nullptr;
+figura* r1 = nullptr;
+figura* r2 = nullptr;
+quadro* q = nullptr;
+pedal* p1 = nullptr;
+pedal* p2 = nullptr;
+figura* t = nullptr;
+perna* pern = nullptr;
 
 
 //funcao chamada continuamente. Deve-se controlar o que desenhar por meio de variaveis
 //globais que podem ser setadas pelo metodo keyboard()
 void render()
 {
-  r = new roda(50, 40, 3);
-  r->desenha(250, 250);
-  teste->SetCoordenadas(300, 300);
-  color(1, 0, 0);
-  //circleFill(teste->x, teste->y, 50, 10);
+
+
   static float angulo = 0;
-  angulo+=0.01;
-  matriz transforma;
-  transforma.MatrizRotaEmEixo(angulo, 250, 250);
-  teste->MultiplicadoPorMatriz(transforma.pontos);
-
-  color(0, 0, 1);
-  //circle(teste->x, teste->y, 50, 10);
-
+  angulo=-0.01;
+  color(1, 0.5, 0.5);
+  p1->desenha(750,250);
+  p1->rotaEmEixo(angulo/2);
+  color(0, 0, 0);
+  //r->desenha(250, 250);
+  r1->rotaEmEixo(angulo);
+  r2->rotaEmEixo(angulo);
+  color(1,0,0);
+  q->desenha(750, 250);
+  ponto po, po2;
+  color(0.5, 0.5, 0.5);
+  po = q->retornaRoda(false);
+  r1->desenha(po.x, po.y);
+  po = q->retornaRoda(true);
+  r2->desenha(po.x, po.y);
+  color(1, 0.5, 0.5);
+  p2->desenha(750,250);
+  p2->rotaEmEixo(angulo/2);
+  color(0, 1, 0);
+  t->desenha(750, 250);
+  po = q->retornaBanco();
+  po2 = p1->retornaFim(pern->calcAngulo(po2, po));
+  pern->calcTamanhos(pern->calcDiff(po, po2));
+  po2 = p2->retornaFim();
+  pern->SetBancoPedal(po, po2);
+  pern->desenha();
 
 }
 
@@ -92,9 +114,15 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
 int main(void)
 {
-   initCanvas(500,500, "Titulo da Janela: Canvas 2D - Pressione 1, 2, 3, 4 ou 5");
+   initCanvas(1500,1000, "Titulo da Janela: Canvas 2D - Pressione 1, 2, 3, 4 ou 5");
 
-   teste = new ponto(300, 300);
+   r1 = new roda(85, 75, 4);
+   r2 = new roda(85, 75, 4);
+   q = new quadro(100);
+   p1 = new pedal(30, 0);
+   p2 = new pedal(30, PI_2*0.5);
+   t = new torso(100);
+   pern = new perna();
 
    //b = new Bola();
    //r = new Relogio();

@@ -197,3 +197,53 @@
 	"gl_canvas2d.h"
 	"Matrizes.h"
 
+1557795019 source:c:\users\paulo\documents\git\computacao_grafica\cgt2\src\gl_canvas2d.cpp
+	"gl_canvas2d.h"
+	<GL/glut.h>
+
+1557795019 c:\users\paulo\documents\git\computacao_grafica\cgt2\src\gl_canvas2d.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string.h>
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+
+1557795019 c:\users\paulo\documents\git\computacao_grafica\cgt2\include\gl\glut.h
+	"freeglut_std.h"
+
+1557795019 c:\users\paulo\documents\git\computacao_grafica\cgt2\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1557795019 c:\users\paulo\documents\git\computacao_grafica\cgt2\include\gl\freeglut_ext.h
+	<stdarg.h>
+
+1557810878 source:c:\users\paulo\documents\git\computacao_grafica\cgt2\src\main_cpp.cpp
+	<GL/glut.h>
+	<GL/freeglut_ext.h>
+	"gl_canvas2d.h"
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	"Bicicleta.h"
+
+1557811074 c:\users\paulo\documents\git\computacao_grafica\cgt2\src\bicicleta.h
+	<vector>
+	<math.h>
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	"gl_canvas2d.h"
+	"Matrizes.h"
+
+1557799502 c:\users\paulo\documents\git\computacao_grafica\cgt2\src\matrizes.h
+	<math.h>
+
