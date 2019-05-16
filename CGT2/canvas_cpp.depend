@@ -146,11 +146,11 @@
 	<stdio.h>
 	<stdlib.h>
 
-1555422337 source:c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\gl_canvas2d.cpp
+1558014861 source:c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\gl_canvas2d.cpp
 	"gl_canvas2d.h"
 	<GL/glut.h>
 
-1555422337 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\gl_canvas2d.h
+1558014861 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\gl_canvas2d.h
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
@@ -158,10 +158,10 @@
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 
-1555422337 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\include\gl\glut.h
+1558014861 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\include\gl\glut.h
 	"freeglut_std.h"
 
-1555422337 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\include\gl\freeglut_std.h
+1558014861 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\include\gl\freeglut_std.h
 	<windows.h>
 	<EGL/egl.h>
 	<GLES/gl.h>
@@ -172,23 +172,22 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1555422337 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\include\gl\freeglut_ext.h
+1558014861 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\include\gl\freeglut_ext.h
 	<stdarg.h>
 
-1557773502 source:c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\main_cpp.cpp
+1558019465 source:c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\main_cpp.cpp
 	<GL/glut.h>
 	<GL/freeglut_ext.h>
 	"gl_canvas2d.h"
 	<math.h>
 	<stdio.h>
 	<stdlib.h>
-	"Matrizes.h"
 	"Bicicleta.h"
 
-1557758695 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\matrizes.h
+1558019843 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\matrizes.h
 	<math.h>
 
-1557774203 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\bicicleta.h
+1558020377 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cgt2\src\bicicleta.h
 	<vector>
 	<math.h>
 	<stdio.h>
