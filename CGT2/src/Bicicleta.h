@@ -1,3 +1,16 @@
+/*
+  Autor: Paulo Saicoski Sarkis
+         05/2019
+
+  Matricula: 201612057
+
+*/
+
+//  Descricao:
+//    Este TAD eh o responsavel por todas as classes utilizadas para desenhar a bicicleta e seus elementos
+
+
+
 #ifndef __BICICLETA_H__
 #define __BICICLETA_H__
 
@@ -13,16 +26,15 @@
 class figura
 {
 public:
-  std::vector<ponto *> pontos;
+  std::vector<ponto *> pontos; // vetor de pontos para o desenho das figuras, posicionados sem escala ou posicionamento final, com a origem como referencia
 
   virtual void desenha(float referenciaX, float referenciaY) {}
-  virtual void rotaEmEixo(float rad);
+  virtual void rotaEmEixo(float rad); // gira os pontos do vetor da classe em volta da origem em rad graus (valor em radianos)
 };
 
 void figura::rotaEmEixo(float rad)
 {
   matriz m;
-
   m.MatrizRotacao(rad);
 
   for (int i = 0; i < pontos.size(); i++)
@@ -48,11 +60,10 @@ roda::roda(float raioExterno, float raioInterno, int qntAros)
 {
   this->raioExterno = raioExterno;
   this->raioInterno = raioInterno;
-  anguloEntreAros = PI_2 / ((float)2 * qntAros);
-  std::cout << anguloEntreAros << std::endl;
+  anguloEntreAros = PI_2 / ((float)2 * qntAros);  //calcula o angulo entre os aros para distribuilos de forma simetrica dentro da roda
   for (int i = 0; i < qntAros * 2; i++)
   {
-    pontos.push_back(new ponto(cos(i * anguloEntreAros), sin(i * anguloEntreAros)));
+    pontos.push_back(new ponto(cos(i * anguloEntreAros), sin(i * anguloEntreAros))); //adiciona os pontos dos aros sem escala e em volta da origem, para que possam ser escalados e rotacionados com facilidade posteriormente
   }
 }
 
@@ -64,12 +75,12 @@ void roda::desenha(float referenciaX, float referenciaY)
   }
   matriz m;
   m.MatrizEscala(raioInterno, raioInterno);
-  m.MatrizTranslacao(referenciaX, referenciaY);
+  m.MatrizTranslacao(referenciaX, referenciaY);  // as matrizes de escala e translacao são calculadas uma unica vez antes de serem utilizadas para multiplicar os pontos
   ponto p;
   for (int i = 0; i < pontos.size(); i++)
   {
-    p.SetCoordenadas(pontos[i]->x, pontos[i]->y);
-    p.MultiplicadoPorMatriz(m.pontos);
+    p.SetCoordenadas(pontos[i]->x, pontos[i]->y); // os poontos reposicionados sao temporarios, para que os originais continuem na origem
+    p.MultiplicadoPorMatriz(m.pontos);            // todos os pontos sao multiplicados pela mesma matriz
     line(referenciaX, referenciaY, p.x, p.y);
   }
 }
@@ -84,10 +95,10 @@ private:
 
 public:
   quadro(float escala);
-  void atualizaRodasBanco(ponto rodaFrontal, ponto rodaTraseira, ponto banco);
+  void atualizaRodasBanco(ponto rodaFrontal, ponto rodaTraseira, ponto banco);  // atualiza as variaveis que serao necessarias para outras classes
   void desenha(float referenciaX, float referenciaY);
-  ponto retornaRoda(bool frontal);
-  ponto retornaBanco();
+  ponto retornaRoda(bool frontal); // retorna a posicao da roda determinada pelo argumento, necessario para a classe roda
+  ponto retornaBanco();            // retorna a posicao do banco, necessario para a classe perna
 };
 
 quadro::quadro(float escala)
@@ -100,9 +111,8 @@ quadro::quadro(float escala)
   pontos.push_back(new ponto(1, 1));    //i = 3 -> ponto quadro abaixo do guidao
   pontos.push_back(new ponto(1.5, 0));  //i = 4 -> roda frontal
   float y = 1.3;                        //altura desejada para o guidao
-  float x = (3 - y) / 2;
-  //x calculado para guidao permanescer na reta criada entre roda frontal e ultimo ponto do quadro
-  pontos.push_back(new ponto(x, y)); //i = 5 -> guidao
+  float x = (3 - y) / 2;                //x calculado para guidao permanescer na reta criada entre roda frontal e ultimo ponto do quadro
+  pontos.push_back(new ponto(x, y));    //i = 5 -> guidao
 }
 
 void quadro::atualizaRodasBanco(ponto rodaFrontal, ponto rodaTraseira, ponto banco)
@@ -112,7 +122,7 @@ void quadro::atualizaRodasBanco(ponto rodaFrontal, ponto rodaTraseira, ponto ban
   this->banco = banco;
 }
 
-void Bezier(ponto p1, ponto p2, ponto p3)
+void Bezier(ponto p1, ponto p2, ponto p3) // funcao utilizada para desenhar a curva de bezier com 3 pontos utilizada na parte superior do quadro da bicicleta
 {
   float x, y;
   for (float t = 0; t < 1; t += 0.001)
@@ -167,7 +177,7 @@ ponto quadro::retornaBanco()
 class pedal : public figura
 {
 private:
-  ponto fim;
+  ponto fim; // referencia para a posicao atual do pedal, necessario para a classe perna
   float raio;
   float referenciaX;
   float referenciaY;
@@ -175,9 +185,9 @@ private:
 public:
   pedal(float raio, float anguloInicial);
   void desenha(float referenciaX, float referenciaY);
-  ponto retornaFim();
-  ponto retornaFim(float rad);
-  void atualizaFim(ponto fim);
+  ponto retornaFim();          // retorna a posicao atual do pedal, necessario para a classe perna
+  ponto retornaFim(float rad); // retorna a posicao do pedal quando este estiver com o angulo rad, necessario para calcular as larguras da classe perna
+  void atualizaFim(ponto fim); // atualiza a variavel fim
 };
 
 pedal::pedal(float raio, float anguloInicial)
@@ -248,11 +258,6 @@ torso::torso(float escala)
                                         //pontos.push_back(new ponto(0,0));    //i = 4 -> cotovelo
 }
 
-void torso::setMao(ponto guidao)
-{
-  pontos[3]->SetCoordenadas(guidao.x, guidao.y);
-}
-
 void torso::desenha(float referenciaX, float referenciaY)
 {
   matriz m;
@@ -264,25 +269,23 @@ void torso::desenha(float referenciaX, float referenciaY)
     p[i].SetCoordenadas(pontos[i]->x, pontos[i]->y);
     p[i].MultiplicadoPorMatriz(m.pontos);
   }
-  color(0, 0, 0);
-  circleFill(p[1].x, p[1].y, 30, 10);
-  color(0, 0, 0);
-  line(p[1].x, p[1].y, p[0].x, p[0].y);
-  line(p[2].x, p[2].y, p[3].x, p[3].y);
+  circleFill(p[1].x, p[1].y, escala*0.3, 50);
+  line(p[1].x, p[1].y, p[0].x, p[0].y);  // linha da cintura ate a cabeca
+  line(p[2].x, p[2].y, p[3].x, p[3].y);  // linha do ombro ate a mao
 }
 
 class perna : public figura
 {
 private:
-  float tamA, tamB; //tamanhos da primeira e segunda parte da perna
-  ponto banco, pedal;
+  float tamA, tamB;  // tamanhos da primeira e segunda parte da perna
+  ponto banco, pedal;// referencias das posicoes do banco e pedal da bicicleta
 
 public:
   perna() {}
-  float calcDiff(ponto A, ponto B);
-  float calcAngulo(ponto A, ponto B);
-  void calcTamanhos(float distMax);
-  void SetBancoPedal(ponto banco, ponto pedal);
+  float calcDiff(ponto A, ponto B);             // calcula a distancia entre 2 pontos
+  float calcAngulo(ponto A, ponto B);           // calcula o angulo entre 2 pontos
+  void calcTamanhos(float distMax);             // calcula os tamanhos de tamA e tamB
+  void SetBancoPedal(ponto banco, ponto pedal); // recebe as referencias de posicao do banco e do pedal
   void desenha();
 };
 
@@ -290,7 +293,6 @@ float perna::calcDiff(ponto A, ponto B)
 {
   float dist;
   dist = sqrt(pow(A.x - B.x, 2) + pow(A.y - B.y, 2));
-  std::cout << dist << std::endl;
   return dist;
 }
 
@@ -298,7 +300,6 @@ float perna::calcAngulo(ponto A, ponto B)
 {
   float rad;
   rad = atan2(A.y - B.y, A.x - B.x);
-  std::cout << rad << std::endl;
   return rad;
 }
 
@@ -318,23 +319,91 @@ void perna::desenha()
 {
   float angBancoPedal;
   float dist;
-  angBancoPedal = calcAngulo(pedal, banco);
-  dist = calcDiff(banco, pedal);
-  float anguloJoelhoTemporario = acos((pow(tamA, 2) + pow(dist, 2) - pow(tamB, 2)) / (2 * tamA * dist));
-  float radFinal = angBancoPedal + anguloJoelhoTemporario;
-  ponto p(cos(radFinal), sin(radFinal));
+  angBancoPedal = calcAngulo(pedal, banco); // calcula o angulo entre o vertice banco->pedal e o eixo X
+  dist = calcDiff(banco, pedal);            // calcula a distancia entre o banco e o pedal
+  float anguloJoelhoTemporario = acos((pow(tamA, 2) + pow(dist, 2) - pow(tamB, 2)) / (2 * tamA * dist)); // calcula o angulo entre os vertices banco->joelho e banco->pedal, considerando um triangulo (banco, joelho, pedal) onde os lados sao tamA, tamB e dist
+  float radFinal = angBancoPedal + anguloJoelhoTemporario; // calcula o angulo do vertice banco->joelho em relacao ao eixo X, considerando que angBancoPedal eh um valor negativo e alguloJoelhoTemporario eh um valor positivo
+  ponto p(cos(radFinal), sin(radFinal)); // calcula a posicao do joelho ao ter o angulo em relacao ao eixo x
   matriz m;
   m.MatrizEscala(tamA, tamA);
   m.MatrizTranslacao(banco.x, banco.y);
   p.MultiplicadoPorMatriz(m.pontos);
-  line(banco.x, banco.y, p.x, p.y);
-  line(p.x, p.y, pedal.x, pedal.y);
-  circleFill(p.x, p.y, 3, 10);
+  line(banco.x, banco.y, p.x, p.y);  // desenha a parte superior da perna
+  line(p.x, p.y, pedal.x, pedal.y);  // desenha a parte inferior da perna
+  circleFill(p.x, p.y, 3, 10);       // desenha um circulo no joelho para melhor visualisacao quando este estiver na frente ou atras de outro objeto
 }
 
 
-class bicicleta:public figura{
+class bicicleta:public figura{  // classe para reuniao das outras classes
+
+private:
+    roda *rodaFrontal;
+    roda *rodaTraseira;
+    quadro *q;
+    pedal *pedalFrente;
+    pedal *pedalTras;
+    torso *t;
+    perna *pernaFrente;
+    perna *pernaTras;
+    float velocidade;
+    ponto auxRoda, auxBanco, auxPedal, auxReferencia;
+
+public:
+    bicicleta(float escala, float velocidade);
+    void desenha(float referenciaX, float referenciaY);
 
 };
+
+bicicleta::bicicleta(float escala, float velocidade){
+    this->velocidade = -velocidade; // angulo recebido como valor positivo giraria a roda para tras (anti-horario), entao negativo o valor
+    rodaFrontal = new roda(escala * 0.85, escala * 0.75, 4);  // proporcao definida para que as rodas tenham tamanhos visualmente similares ao resto da bicicleta
+    rodaTraseira = new roda(escala * 0.85, escala * 0.75, 4);
+    q = new quadro(escala);
+    pedalFrente = new pedal(escala * 0.3, 0);
+    pedalTras = new pedal(escala * 0.3, PI_2*0.5); // enquanto um pedal comeca para frente, o outro comeca para tras
+    t = new torso(escala);
+    pernaFrente = new perna();
+    pernaTras = new perna();
+
+}
+
+void bicicleta::desenha(float referenciaX, float referenciaY){
+
+
+    auxReferencia.SetCoordenadas(referenciaX, referenciaY);
+    color(0.5,0.2,0.2);
+    pedalTras->desenha(referenciaX, referenciaY);
+    pedalTras->rotaEmEixo(velocidade*0.5);                                            //os pedais giram mais de vagar que as rodas
+    auxPedal = pedalTras->retornaFim(pernaTras->calcAngulo(auxReferencia, auxBanco)); // calcula o angulo entre o banco e a catraca (que esta na referencia), para entao aplicar este angulo no pedal e verificar qual a distancia maxima entre o banco e o pedal
+    pernaTras->calcTamanhos(pernaTras->calcDiff(auxBanco, auxPedal));                 // os tamanhos das pernas sao decididos a partir da distancia maxima entre banco e pedal
+    auxPedal = pedalTras->retornaFim();
+    pernaTras->SetBancoPedal(auxBanco, auxPedal);
+    color(0.4,0.4,0.4); // a perna de tras eh cinza, enquanto a da frente eh preta
+    pernaTras->desenha();
+
+    color(1,0,0);
+    q->desenha(referenciaX, referenciaY);
+    auxBanco = q->retornaBanco();
+    auxRoda = q->retornaRoda(false);
+    color(0.4,0.4,0.6);
+    rodaTraseira->desenha(auxRoda.x, auxRoda.y);
+    rodaTraseira->rotaEmEixo(velocidade);
+    auxRoda = q->retornaRoda(true);
+    rodaFrontal->desenha(auxRoda.x, auxRoda.y);
+    rodaFrontal->rotaEmEixo(velocidade);
+    color(0,0,0);
+    t->desenha(referenciaX, referenciaY);
+    color(1,0.5,0.5);
+    pedalFrente->desenha(referenciaX, referenciaY);
+    pedalFrente->rotaEmEixo(velocidade*0.5);
+    auxPedal = pedalFrente->retornaFim(pernaFrente->calcAngulo(auxReferencia, auxBanco));
+    pernaFrente->calcTamanhos(pernaFrente->calcDiff(auxBanco, auxPedal));
+    auxPedal = pedalFrente->retornaFim();
+    pernaFrente->SetBancoPedal(auxBanco, auxPedal);
+    color(0,0,0);
+    pernaFrente->desenha();
+
+
+}
 
 #endif
