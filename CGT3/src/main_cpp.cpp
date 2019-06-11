@@ -68,7 +68,7 @@ void keyboardUp(int key)
 //funcao para tratamento de mouse: cliques, movimentos e arrastos
 void mouse(int button, int state, int wheel, int direction, int x, int y)
 {
-   //printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
+   printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 }
 
 int main(void)
