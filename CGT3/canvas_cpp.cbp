@@ -44,7 +44,10 @@
 			<Add library="../lib/freeglut.lib" />
 		</Linker>
 		<Unit filename="include/GL/glut.h" />
-		<Unit filename="src/Relogio.cpp" />
+		<Unit filename="src/Matrizes2d.h" />
+		<Unit filename="src/Matrizes3d.h" />
+		<Unit filename="src/arrastaveis.h" />
+		<Unit filename="src/curvas.h" />
 		<Unit filename="src/gl_canvas2d.cpp" />
 		<Unit filename="src/gl_canvas2d.h" />
 		<Unit filename="src/main_cpp.cpp" />

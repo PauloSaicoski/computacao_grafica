@@ -27,6 +27,14 @@
 
 int largura, altura;
 
+int getAltura(){
+    return altura;
+}
+
+int getLargura(){
+    return largura;
+}
+
 void point(int x, int y)
 {
    glBegin(GL_POINTS);

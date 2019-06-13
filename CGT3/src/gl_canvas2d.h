@@ -11,6 +11,10 @@
 
 #define PI_2 6.28318530717958
 
+int getAltura();
+
+int getLargura();
+
 
 //funcoes da biblioteca
 void point(int x, int y); //coordeandas do ponto
