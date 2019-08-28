@@ -1,0 +1,153 @@
+# depslib dependency file v1.0
+1258628608 source:c:\ufsm\disciplinas\computacao grafica avancada\programas\glsl_4_texture\src\glsl.cpp
+	"glsl.h"
+
+1258628578 c:\ufsm\disciplinas\computacao grafica avancada\programas\glsl_4_texture\src\glsl.h
+	<GL/glew.h>
+	<GL/glut.h>
+	<stdio.h>
+	<stdlib.h>
+
+1374502282 c:\ufsm\disciplinas\computacao grafica avancada\programas\glsl_4_texture\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1107052520 c:\ufsm\disciplinas\computacao grafica avancada\programas\glsl_4_texture\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1107052520 c:\ufsm\disciplinas\computacao grafica avancada\programas\glsl_4_texture\include\gl\gl.h
+
+924724106 c:\ufsm\disciplinas\computacao grafica avancada\programas\glsl_4_texture\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1222454296 source:c:\ufsm\disciplinas\computacao grafica avancada\programas\glsl_4_texture\src\bmp.cpp
+	"Bmp.h"
+	<string.h>
+
+1191315996 c:\ufsm\disciplinas\computacao grafica avancada\programas\glsl_4_texture\src\bmp.h
+	<stdio.h>
+	<stdlib.h>
+
+1258628610 source:d:\ufsm\disciplinas\computacao grafica avancada\programas\demos_gl 3.x\glsl_5_texture\src\glsl.cpp
+	"glsl.h"
+
+1258628580 d:\ufsm\disciplinas\computacao grafica avancada\programas\demos_gl 3.x\glsl_5_texture\src\glsl.h
+	<GL/glew.h>
+	<GL/glut.h>
+	<stdio.h>
+	<stdlib.h>
+
+1374502282 d:\ufsm\disciplinas\computacao grafica avancada\programas\demos_gl 3.x\glsl_5_texture\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1107052520 d:\ufsm\disciplinas\computacao grafica avancada\programas\demos_gl 3.x\glsl_5_texture\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1107052520 d:\ufsm\disciplinas\computacao grafica avancada\programas\demos_gl 3.x\glsl_5_texture\include\gl\gl.h
+
+924724106 d:\ufsm\disciplinas\computacao grafica avancada\programas\demos_gl 3.x\glsl_5_texture\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1222454298 source:d:\ufsm\disciplinas\computacao grafica avancada\demos\demos_gl 3.x\glsl_5_texture\src\bmp.cpp
+	"Bmp.h"
+	<string.h>
+
+1191315996 d:\ufsm\disciplinas\computacao grafica avancada\demos\demos_gl 3.x\glsl_5_texture\src\bmp.h
+	<stdio.h>
+	<stdlib.h>
+
+1258628610 source:d:\ufsm\disciplinas\computacao grafica avancada\demos\demos_gl 3.x\glsl_5_texture\src\glsl.cpp
+	"glsl.h"
+
+1258628580 d:\ufsm\disciplinas\computacao grafica avancada\demos\demos_gl 3.x\glsl_5_texture\src\glsl.h
+	<GL/glew.h>
+	<GL/glut.h>
+	<stdio.h>
+	<stdlib.h>
+
+1374502282 d:\ufsm\disciplinas\computacao grafica avancada\demos\demos_gl 3.x\glsl_5_texture\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1107052520 d:\ufsm\disciplinas\computacao grafica avancada\demos\demos_gl 3.x\glsl_5_texture\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1107052520 d:\ufsm\disciplinas\computacao grafica avancada\demos\demos_gl 3.x\glsl_5_texture\include\gl\gl.h
+
+924724106 d:\ufsm\disciplinas\computacao grafica avancada\demos\demos_gl 3.x\glsl_5_texture\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1471022251 source:d:\ufsm\disciplinas\computacao grafica avancada\demos\demos_gl 3.x\glsl_5_texture\src\main.cpp
+	<GL/glew.h>
+	<GL/glut.h>
+	<stdio.h>
+	<math.h>
+	"Bmp.h"
+	"glsl.h"
+
+1222454298 source:c:\users\paulo\documents\git\computacao_grafica\glsl_5_texture\src\bmp.cpp
+	"Bmp.h"
+	<string.h>
+
+1191315996 c:\users\paulo\documents\git\computacao_grafica\glsl_5_texture\src\bmp.h
+	<stdio.h>
+	<stdlib.h>
+
+1258628610 source:c:\users\paulo\documents\git\computacao_grafica\glsl_5_texture\src\glsl.cpp
+	"glsl.h"
+
+1258628580 c:\users\paulo\documents\git\computacao_grafica\glsl_5_texture\src\glsl.h
+	<GL/glew.h>
+	<GL/glut.h>
+	<stdio.h>
+	<stdlib.h>
+
+1374502282 c:\users\paulo\documents\git\computacao_grafica\glsl_5_texture\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1107052520 c:\users\paulo\documents\git\computacao_grafica\glsl_5_texture\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1107052520 c:\users\paulo\documents\git\computacao_grafica\glsl_5_texture\include\gl\gl.h
+
+924724106 c:\users\paulo\documents\git\computacao_grafica\glsl_5_texture\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1566962323 source:c:\users\paulo\documents\git\computacao_grafica\glsl_5_texture\src\main.cpp
+	<GL/glew.h>
+	<GL/glut.h>
+	<stdio.h>
+	<math.h>
+	"Bmp.h"
+	"glsl.h"
+
