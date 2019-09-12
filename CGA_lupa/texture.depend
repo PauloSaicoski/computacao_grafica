@@ -195,3 +195,47 @@
 	"Bmp.h"
 	"glsl.h"
 
+1566992350 source:c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cga_lupa\src\bmp.cpp
+	"Bmp.h"
+	<string.h>
+
+1566992350 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cga_lupa\src\bmp.h
+	<stdio.h>
+	<stdlib.h>
+
+1566992350 source:c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cga_lupa\src\glsl.cpp
+	"glsl.h"
+
+1566992350 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cga_lupa\src\glsl.h
+	<GL/glew.h>
+	<GL/glut.h>
+	<stdio.h>
+	<stdlib.h>
+
+1566992350 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cga_lupa\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1566992350 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cga_lupa\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1566992350 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cga_lupa\include\gl\gl.h
+
+1566992350 c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cga_lupa\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1566998285 source:c:\users\aluno\documents\cg\git_paulo\computacao_grafica\cga_lupa\src\main.cpp
+	<GL/glew.h>
+	<GL/glut.h>
+	<stdio.h>
+	<math.h>
+	"Bmp.h"
+	"glsl.h"
+

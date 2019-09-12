@@ -24,7 +24,7 @@
 #define SCREEN_X 1000
 #define SCREEN_Y 800
 
-double frameTime = 0, executionTime = 0, previousTime = 0, acumuladoTime = 0;
+double frameTime = 0, executionTime = 0, previousTime = 0, fps = 60;
 
 int polygonMode = 1;
 float rx = 0, rz = 0;
@@ -119,8 +119,8 @@ void init()
 void display(void)
 {
 
-    executionTime = clock() / CLOCKS_PER_SEC;
-    frameTime = executionTime - previousTime;
+    executionTime = clock();
+
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -187,6 +187,13 @@ void display(void)
     glPopMatrix();
 
     glutSwapBuffers();
+
+    previousTime = clock();
+    frameTime = ((previousTime - executionTime)/CLOCKS_PER_SEC)/1000;
+    frameTime = 1/fps * 1000 - frameTime;
+    Sleep(frameTime);
+
+
 }
 
 //faz a leitura da entrada do usuario
