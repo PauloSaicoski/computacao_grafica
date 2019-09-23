@@ -1,0 +1,35 @@
+﻿  Plane.cpp
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec2.hpp(64,1): warning C4201:  extensão não padrão usada: struct/union sem nome
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec2.hpp(242): message :  consulte a referência à criação de instância 'glm::tvec2<T,P>' do modelo da classe que está sendo compilada
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec2.hpp(65,1): warning C4201:  extensão não padrão usada: struct/union sem nome
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec2.hpp(66,1): warning C4201:  extensão não padrão usada: struct/union sem nome
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec3.hpp(64,1): warning C4201:  extensão não padrão usada: struct/union sem nome
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec3.hpp(264): message :  consulte a referência à criação de instância 'glm::tvec3<T,P>' do modelo da classe que está sendo compilada
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec3.hpp(65,1): warning C4201:  extensão não padrão usada: struct/union sem nome
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec3.hpp(66,1): warning C4201:  extensão não padrão usada: struct/union sem nome
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec4.hpp(118,1): warning C4201:  extensão não padrão usada: struct/union sem nome
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec4.hpp(364): message :  consulte a referência à criação de instância 'glm::tvec4<T,P>' do modelo da classe que está sendo compilada
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec4.hpp(119,1): warning C4201:  extensão não padrão usada: struct/union sem nome
+D:\Downloads HD\cga\Demos_GL 4.x\include\glm\detail\type_vec4.hpp(120,1): warning C4201:  extensão não padrão usada: struct/union sem nome
+D:\Downloads HD\cga\Demos_GL 4.x\utils\glslprogram.h(56,34): warning C4100:  'other': parâmetro formal não referenciado
+D:\Downloads HD\cga\Demos_GL 4.x\utils\glslprogram.h(57,45): warning C4100:  'other': parâmetro formal não referenciado
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(130,1): warning C4005:  'APIENTRY': redefinição de macro
+D:\Downloads HD\cga\Demos_GL 4.x\include\GLFW\glfw3.h(85): message :  consulte a definição anterior de 'APIENTRY'
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.cpp(71,27): warning C4100:  'deltaTime': parâmetro formal não referenciado
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.cpp(132,31): warning C4100:  'y': parâmetro formal não referenciado
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.cpp(132,24): warning C4100:  'x': parâmetro formal não referenciado
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.cpp(166,31): warning C4458:  a declaração de 'zoom' oculta o membro da classe
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.h(34,20): message :  consulte a declaração de 'Plane::zoom'
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.cpp(170,52): warning C4458:  a declaração de 'fire' oculta o membro da classe
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.h(34,26): message :  consulte a declaração de 'Plane::fire'
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.cpp(170,52): warning C4458:  a declaração de 'pos' oculta o membro da classe
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.h(52,7): message :  consulte a declaração de 'Plane::pos'
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.cpp(170,52): warning C4458:  a declaração de 'dir' oculta o membro da classe
+D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\src\Plane.h(52,12): message :  consulte a declaração de 'Plane::dir'
+  glsl40_texture.vcxproj.vcxproj -> D:\Downloads HD\cga\Demos_GL 4.x\bin\glsl40_texture.exe
+  compying shaders
+  D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\shader\glsl40_texture.frag
+  D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\shader\glsl40_texture.vert
+  D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\shader\Tela.frag
+  D:\Downloads HD\cga\Demos_GL 4.x\demos\glsl40_texture\shader\Tela.vert
+  4 arquivo(s) copiado(s)
